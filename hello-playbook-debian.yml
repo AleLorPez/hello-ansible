@@ -8,9 +8,17 @@
     - name: Show gateway
       ansible.builtin.debug:
         msg: "{{ ansible_default_ipv4.gateway }}"
+    - name: Update apt cache
+      ansible.builtin.apt:
+        update_cache: yes
+    - name: Install Unzip
+      ansible.builtin.apt:
+        name: unzip
+        state: present
     - name: Install apache
       ansible.builtin.apt:
         name: apache2
+        state: present
     - name: Start apache
       ansible.builtin.service:
         name: apache2
