@@ -1,0 +1,9 @@
+---
+# tasks file for webserver
+- name: Deploy in Fedora
+  import_task: deploy.yml
+  when: ansible_fact['os_family'] == "Fedora"
+
+- name: Deploy in Debian
+  import_task: deploy.yml
+  when: ansible_fact['os_family'] == "Debian"

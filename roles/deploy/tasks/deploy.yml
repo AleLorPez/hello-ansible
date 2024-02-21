@@ -1,0 +1,6 @@
+- name: Desplegar aplicacion
+      ansible.builtin.unarchive:
+        src: /home/tux/Downloads/2048.zip
+        dest: /var/www/html/
+        owner: root
+        group: root
