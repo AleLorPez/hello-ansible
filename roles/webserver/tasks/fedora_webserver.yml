@@ -1,0 +1,3 @@
+- name: Instalar servidor web
+  ansible.builtin.yum
+    name: httpd

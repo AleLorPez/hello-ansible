@@ -1,0 +1,85 @@
+---
+- name: Hello, Ansible Playbook
+  hosts: All
+  become: true
+  tasks:
+    - name: Example from Ansible Playbook
+      ansible.builtin.ping:
+    - name: Show gateway
+      ansible.builtin.debug:
+        msg: "{{ ansible_default_ipv4.gateway }}"
+    - name: Update apt cache
+      ansible.builtin.apt:
+        update_cache: yes
+    - name: Install Unzip
+      ansible.builtin.apt:
+        name: unzip
+        state: present
+    - name: Install apache
+      ansible.builtin.apt:
+        name: apache2
+        state: present
+      when: ansible_facts['os_family'] == "Debian"
+
+    - name: Start apache
+      ansible.builtin.service:
+        name: apache2
+        state: started
+        enabled: true
+      when: ansible_facts['os_family'] == "Debian"
+
+    - name: Install mariadb
+      ansible.builtin.apt:
+        name: mariadb-server
+      when: ansible_facts['os_family'] == "Debian"
+
+    - name: Uninstall htop
+      ansible.builtin.apt:
+        name: htop
+        state: absent
+    - name: Desplegar aplicacion
+      ansible.builtin.unarchive:
+        src: /home/tux/Downloads/2048.zip
+        dest: /var/www/html/
+        owner: root
+        group: root
+
+    - name: Example from Ansible Playbook
+      ansible.builtin.ping:
+    - name: Show gateway
+      ansible.builtin.debug:
+        msg: "{{ ansible_default_ipv4.gateway }}"
+    - name: Install apache
+      ansible.builtin.yum:
+        name: httpd
+      when: ansible_facts['os_family'] == "Fedora"
+
+    - name: Start apache
+      ansible.builtin.service:
+        name: httpd
+        state: started
+        enabled: true
+      when: ansible_facts['os_family'] == "Fedora"
+
+    - name: Install mariadb
+      ansible.builtin.yum:
+        name: mariadb-server
+      when: ansible_facts['os_family'] == "Fedora"
+
+    - name: Uninstall htop
+      ansible.builtin.yum:
+        name: htop
+        state: absent
+      when: ansible_facts['os_family'] == "Fedora"
+    
+    - name: Install unzip
+      ansible.builtin.yum:
+        name: unzip
+      when: ansible_facts['os_family'] == "Fedora"
+
+    - name: Desplegar aplicacion
+      ansible.builtin.unarchive:
+        src: /home/tux/Downloads/2048.zip
+        dest: /var/www/html/
+        owner: root
+        group: root

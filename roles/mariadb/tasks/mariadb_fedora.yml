@@ -1,0 +1,3 @@
+- name: Install mariadb
+      ansible.builtin.yum:
+        name: mariadb-server
